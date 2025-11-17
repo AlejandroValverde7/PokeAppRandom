@@ -1,7 +1,6 @@
 /**
  * Clase que llama a todos los datos de la api para agregarlos
  */
-/*https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0*/
 
 /**
  * Saca pokemonRandom sacara 6 nombres de pokemos para 
@@ -21,15 +20,30 @@ const SacaEquipoPokemonRandom = async() =>{
     let equipoPoke = [];
 
     for (let i = 0; i < 6; i++) {
-        equipoPoke[i] = data.results[Math.floor(Math.random() * totPoke)];
-        console.log(equipoPoke[i]["name"]);
+        equipoPoke[i] = data.results[Math.floor(Math.random() * totPoke)]["name"];
+        
     }
 
     return equipoPoke;
 
 }
 
-/*https://pokeapi.co/api/v2/pokemon/(Nombre de pokemon)*/
+/**
+ * Carga todos los datos de cada pokemon en un array
+ * @param {Array<String>} equipo 
+ * @returns {Array<Object>} Devuelve los datos de cada pokemon cargados en el array
+ */
+const datosPokemon = async(equipo) =>{
+    let datosPoke = [];
+
+    //Guardamos los datos de cada pokemon
+    for (let i = 0; i < equipo.length; i++) {
+        datosPoke[i] = await fetch("https://pokeapi.co/api/v2/pokemon/"+equipo[i]);
+        datosPoke[i] = await datosPoke.json();
+    }
+
+    return datosPoke;
+}
 
 /**
  * 
@@ -39,6 +53,8 @@ const SacaEquipoPokemonRandom = async() =>{
  * @returns {Array<ImageData>} Devuelve la imagen
  */
 const sacaImagenPokemon = (equipo) => {
+
+    
 
 }
 
@@ -56,6 +72,12 @@ export const PokeApp = async() =>{
      * Evento que muestra el equipo sacado de la API
      */
     document.getElementById("randTeam").addEventListener("click", () =>{
-        SacaEquipoPokemonRandom();
+        let sacados = SacaEquipoPokemonRandom();
+        console.log(typeof sacados);
+        console.log(sacados[1]);
+
+        let datosPoke = datosPokemon(sacados);
+
+
     })
 }

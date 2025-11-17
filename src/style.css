@@ -94,3 +94,17 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.MuestraPoke{
+  margin-left: 100px;
+}
+
+.MuestraPoke tr{
+  margin: 20px;
+  padding: 40px;
+}
+
+.MuestraPoke th{
+  margin: 20px;
+  padding: 100px;
+}
