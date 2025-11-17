@@ -1,21 +1,24 @@
 import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
+import PokeSinFondo from '../public/PokeSinFondo.png'
+import {PokeApp} from './PokeFetch/PokeFetch.js'
 
 document.querySelector('#app').innerHTML = `
   <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
+    <a>
+      <img src="${PokeSinFondo}"/>
     </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
+    <h1>Crea un equipo personalizado para combatir</h1>
     <div class="card">
-      <button id="counter" type="button"></button>
+      <button id="randTeam" type="button">Dame un equipo</button>
     </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
+      <div class="MuestraPoke">
+      <div class="Poke1">1</div>
+      <div class="Poke2">2</div>
+      <div class="Poke3">3</div>
+      <div class="Poke4">4</div>
+      <div class="Poke5">5</div>
+      <div class="Poke6">6</div>
+  </div>
   </div>
 `
+PokeApp();
