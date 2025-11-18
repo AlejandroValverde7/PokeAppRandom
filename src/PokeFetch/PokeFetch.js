@@ -35,11 +35,12 @@ const SacaEquipoPokemonRandom = async() =>{
  */
 const datosPokemon = async(equipo) =>{
     let datosPoke = [];
+    await equipo;
 
     //Guardamos los datos de cada pokemon
     for (let i = 0; i < equipo.length; i++) {
         datosPoke[i] = await fetch("https://pokeapi.co/api/v2/pokemon/"+equipo[i]);
-        datosPoke[i] = await datosPoke.json();
+        datosPoke[i] = await datosPoke[i].json();
     }
 
     return datosPoke;
@@ -54,8 +55,13 @@ const datosPokemon = async(equipo) =>{
  */
 const sacaImagenPokemon = (equipo) => {
 
-    
+    let arrSprites = [];
 
+    for (let i = 0; i < equipo.length; i++) {
+        arrSprites[i] = equipo[i].sprites.front_default;
+    }
+    
+    return arrSprites;
 }
 
 /**
@@ -64,6 +70,20 @@ const sacaImagenPokemon = (equipo) => {
  */
 const sacaTiposPokemon = (equipo) => {
 
+    // let arrTipos = [];
+    // let tiposParaArr = [];
+
+    // for (let i = 0; i < equipo.length; i++) {
+    //     for (let t = 0; t < equipo[i].types.length; t++) {
+    //         tiposParaArr[t]
+            
+    //     }
+    //     arrTipos[i]
+    //     arrSprites[i] = equipo[i].sprites.front_default;
+    // }
+    
+    // return arrSprites;
+
 }
 
 
@@ -71,13 +91,14 @@ export const PokeApp = async() =>{
     /**
      * Evento que muestra el equipo sacado de la API
      */
-    document.getElementById("randTeam").addEventListener("click", () =>{
-        let sacados = SacaEquipoPokemonRandom();
-        console.log(typeof sacados);
-        console.log(sacados[1]);
-
-        let datosPoke = datosPokemon(sacados);
-
+    document.getElementById("randTeam").addEventListener("click", async() =>{
+        let sacados = await SacaEquipoPokemonRandom();
+        let datosPoke = await datosPokemon(sacados);
+        let ImgsPoke = await sacaImagenPokemon(datosPoke);
+        
+        for (let i = 0; i < ImgsPoke.length; i++) {
+            document.getElementById("Poke"+(++i)).innerHTML = "hola";
+        }
 
     })
 }

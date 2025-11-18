@@ -1,5 +1,5 @@
 import './style.css'
-import PokeSinFondo from '../public/PokeSinFondo.png'
+import PokeSinFondo from '/PokeSinFondo.png'
 import {PokeApp} from './PokeFetch/PokeFetch.js'
 
 document.querySelector('#app').innerHTML = `
@@ -23,7 +23,7 @@ document.querySelector('#app').innerHTML = `
       </table>
     
     <button id="randTeam" type="button">Dame un equipo</button>
-
+    <img class="imagenPrueba">
   </div>
 `
 PokeApp();
