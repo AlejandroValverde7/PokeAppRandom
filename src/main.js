@@ -9,16 +9,16 @@ document.querySelector('#app').innerHTML = `
     </a>
     <h1>Crea un equipo personalizado para combatir</h1>
     <div class="card">
-          <table border="1" class="MuestraPoke">
+          <table id="MuestraPoke">
         <tr>
-          <th class="Poke1">Pk1</th>
-          <th class="Poke2">Pk2</th>
-          <th class="Poke3">Pk3</th>
+          <th id="Poke1"></th>
+          <th id="Poke2"></th>
+          <th id="Poke3"></th>
         </tr>
         <tr>
-          <th class="Poke4">Pk4</th>
-          <th class="Poke5">Pk5</th>
-          <th class="Poke6">Pk6</th>
+          <th id="Poke4"></th>
+          <th id="Poke5"></th>
+          <th id="Poke6"></th>
         </tr>
       </table>
     

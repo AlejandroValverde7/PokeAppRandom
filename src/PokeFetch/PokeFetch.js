@@ -11,7 +11,7 @@
  * 
  * @returns {Array<String>} devuelve un array con los nombres de los pokemon random 
  */
-const SacaEquipoPokemonRandom = async() =>{
+const SacaEquipoPokemonRandom = async () => {
 
     const res = await fetch("https://pokeapi.co/api/v2/pokemon?limit=100000&offset=0");
     const data = await res.json();
@@ -21,7 +21,7 @@ const SacaEquipoPokemonRandom = async() =>{
 
     for (let i = 0; i < 6; i++) {
         equipoPoke[i] = data.results[Math.floor(Math.random() * totPoke)]["name"];
-        
+
     }
 
     return equipoPoke;
@@ -33,16 +33,14 @@ const SacaEquipoPokemonRandom = async() =>{
  * @param {Array<String>} equipo 
  * @returns {Array<Object>} Devuelve los datos de cada pokemon cargados en el array
  */
-const datosPokemon = async(equipo) =>{
-    let datosPoke = [];
-    await equipo;
+const datosPokemon = async (equipo) => {
 
-    //Guardamos los datos de cada pokemon
-    for (let i = 0; i < equipo.length; i++) {
-        datosPoke[i] = await fetch("https://pokeapi.co/api/v2/pokemon/"+equipo[i]);
-        datosPoke[i] = await datosPoke[i].json();
-    }
-
+    const datosPoke = await Promise.all(
+        equipo.map(async(nombre) =>{
+                const res = await fetch("https://pokeapi.co/api/v2/pokemon/" + nombre);
+                return await res.json();
+        })
+    );
     return datosPoke;
 }
 
@@ -50,7 +48,8 @@ const datosPokemon = async(equipo) =>{
  * 
  *  Array con las imagenes del pokemon
  * Podemos sacar sus sprites  o sus gifs
- * @param {Array<String>} equipo 
+ * TODO: cuando no se tiene imagen en la api, devuelve null, añadir imagen desconocido
+ * @param {Array<Object>} equipo 
  * @returns {Array<ImageData>} Devuelve la imagen
  */
 const sacaImagenPokemon = (equipo) => {
@@ -60,45 +59,58 @@ const sacaImagenPokemon = (equipo) => {
     for (let i = 0; i < equipo.length; i++) {
         arrSprites[i] = equipo[i].sprites.front_default;
     }
-    
+
     return arrSprites;
 }
 
 /**
  * Podemos sacar los tipos con types array con el nombre de los tipos
+ * 
+ * Recorreremos, primeros los json, luego los types y de cada type sacar name
+ * 
  *@param {Array<Array>} equipo 
  */
 const sacaTiposPokemon = (equipo) => {
 
-    // let arrTipos = [];
-    // let tiposParaArr = [];
+    let arrTipos = [];
+    let tiposParaArr = [];
 
-    // for (let i = 0; i < equipo.length; i++) {
-    //     for (let t = 0; t < equipo[i].types.length; t++) {
-    //         tiposParaArr[t]
-            
-    //     }
-    //     arrTipos[i]
-    //     arrSprites[i] = equipo[i].sprites.front_default;
-    // }
-    
-    // return arrSprites;
+    for (let i = 0; i < equipo.length; i++) {
+        for (let t = 0; t < equipo[i].types.length; t++) {
+            tiposParaArr[t] = equipo[i].types[t].type.name
+        }
+        arrTipos[i] = tiposParaArr;
+        tiposParaArr = [];
+        
+    }
+    return arrTipos;
 
 }
 
+const render = (nombre,Imagenes,tipos) =>{
+    document.getElementById("MuestraPoke").style.display="block";
+    for (let i = 0; i < Imagenes.length; i++) {
+            let imgElement = document.getElementById("Poke" + (i + 1));
+            if (imgElement) {
+                imgElement.innerHTML = `<p class="letrasNombre">${nombre[i]}</p>`;
+                imgElement.innerHTML += `<img src="${Imagenes[i]}" alt="pokemon ${i + 1}" /></br>`;
+                for (let t = 0; t < tipos[i].length; t++) {
+                    imgElement.innerHTML += `<p class="${tipos[i][t]}">${tipos[i][t]}</p>`;
+                }
+            }
+        }
 
-export const PokeApp = async() =>{
+}
+
+export const PokeApp = async () => {
     /**
      * Evento que muestra el equipo sacado de la API
      */
-    document.getElementById("randTeam").addEventListener("click", async() =>{
+    document.getElementById("randTeam").addEventListener("click", async () => {
         let sacados = await SacaEquipoPokemonRandom();
         let datosPoke = await datosPokemon(sacados);
-        let ImgsPoke = await sacaImagenPokemon(datosPoke);
-        
-        for (let i = 0; i < ImgsPoke.length; i++) {
-            document.getElementById("Poke"+(++i)).innerHTML = "hola";
-        }
-
+        let ImgsPoke = sacaImagenPokemon(datosPoke);
+        let TiposPoke = sacaTiposPokemon(datosPoke);
+        render(sacados,ImgsPoke,TiposPoke);
     })
 }
