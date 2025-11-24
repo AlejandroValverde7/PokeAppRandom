@@ -21,7 +21,7 @@
         -npm run dev (probar en local)
 
     -Una vez echo esto podemos usarla, si no, podremos utilizarla
-    en (añadir despliegue) donde esta desplegada.
+    en https://pokeapprandomvx.netlify.app/ donde esta desplegada.
 
 ## 4 - Api usada
     -Se utiliza la api https://pokeapi.co/ la cual se puede consultar
