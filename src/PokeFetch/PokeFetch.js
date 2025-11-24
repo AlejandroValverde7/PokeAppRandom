@@ -57,7 +57,11 @@ const sacaImagenPokemon = (equipo) => {
     let arrSprites = [];
 
     for (let i = 0; i < equipo.length; i++) {
-        arrSprites[i] = equipo[i].sprites.front_default;
+        if(equipo[i].sprites.front_default != null){
+            arrSprites[i] = equipo[i].sprites.front_default;
+        }else{
+            arrSprites[i] = "/SinImgRedi.png";
+        }
     }
 
     return arrSprites;
@@ -95,7 +99,7 @@ const render = (nombre,Imagenes,tipos) =>{
                 imgElement.innerHTML = `<p class="letrasNombre">${nombre[i]}</p>`;
                 imgElement.innerHTML += `<img src="${Imagenes[i]}" alt="pokemon ${i + 1}" /></br>`;
                 for (let t = 0; t < tipos[i].length; t++) {
-                    imgElement.innerHTML += `<p class="${tipos[i][t]}">${tipos[i][t]}</p>`;
+                    imgElement.innerHTML += `<p class="tipo ${tipos[i][t]}">${tipos[i][t]}</p>`;
                 }
             }
         }

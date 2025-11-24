@@ -21,9 +21,8 @@ document.querySelector('#app').innerHTML = `
           <th id="Poke6"></th>
         </tr>
       </table>
-    
+    </div>  
     <button id="randTeam" type="button">Dame un equipo</button>
-    <img class="imagenPrueba">
-  </div>
+  
 `
 PokeApp();
