@@ -1,10 +1,11 @@
 ## PokeAppRandom
 
 ## Indice.
-    *¿Qué es?*
-    *¿Como funciona?*
-    *Como utilizarlo.*
-    *Api usada*
+    - • ¿Qué es?
+    - • ¿Como funciona?
+    - • Como utilizarlo.
+    - • Api usada
+    - • Demo desplegada
 
 ## 1 - ¿Que es?
     Pequeña aplicacion web que muestra un equipo aleatorio de pokemon's
